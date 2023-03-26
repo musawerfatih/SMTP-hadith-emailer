@@ -1,7 +1,8 @@
 name: Daily Test Send
 on:
-  schedule:
-    - cron: '19 14 * * *' #Runs everyday at 06:17pm in Pakistan standard time
+  push:
+    branches: 
+      - '*'
 
 jobs:
   build:
