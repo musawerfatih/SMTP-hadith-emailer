@@ -1,7 +1,10 @@
 name: Daily Test Send
 on:
   schedule:
-    - cron: '17 13 * * *' #Runs everyday at 06:17pm in Pakistan standard time
+    - cron: '29 18 * * *'
+      timezone: Asia/Karachi
+
+
 jobs:
   build:
     runs-on: ubuntu-latest
