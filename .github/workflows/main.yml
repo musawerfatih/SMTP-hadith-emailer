@@ -1,21 +1,18 @@
-name: Daily Test Send
+name: Workflow Test
+
 on:
   schedule:
-    - cron: '29 18 * * *'
-      timezone: Asia/Karachi
+    - cron: '40 18 * * *'
 
+env:
+  TZ: Asia/Karachi
 
 jobs:
-  build:
+  run-script:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-    - name: Install dependencies
-      run: pip install -r requirements.txt
-    - name: Run Python script
-      run: python main.py
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run Python script
+        run: |
+          python myscript.py
