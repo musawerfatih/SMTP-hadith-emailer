@@ -2,28 +2,33 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import requests
+from bs4 import BeautifulSoup
 
+# Send a request to the website and get its HTML content
+url = "https://www.alim.org/hadith-of-the-day/"
+response = requests.get(url)
+html_content = response.content
 
-# get today's quote and its author using API
-response = requests.get("https://zenquotes.io/api/today")
-data = response.json()
+# Use BeautifulSoup to parse the HTML content
+soup = BeautifulSoup(html_content, "html.parser")
 
-today_quote = data[0]["q"]
-auth = data[0]["a"]
+# Get the hadith text inside div of class 
+hadith_text = (soup.find("div", class_="hadith-text")).text
+# print(hadith_text)
+
+# Get the reference of the Hadith from div tag
+hadith_ref = (soup.find("div", class_="btn btn-small hadith-of-day-ref")).text
+# print(hadith_ref)
 
 
 # create a message
 msg = MIMEMultipart("alternative")
 # msg['From'] = 'twitterdvlpr@gmail.com'
 # msg['From'] = 'Daily Quote <sender@gmail.com>'
-msg['From'] = 'Daily Quote'
+msg['From'] = 'Daily Hadith'
 msg['To'] = 'musawerfatih@gmail.com'
-msg['Subject'] = "Today's Quote"
+msg['Subject'] = "Today's Hadith"
 
-
-# Define the quote and author information
-quote = today_quote.strip()
-author = auth
 
 # Create the HTML email body with the quote and author
 html = """
@@ -42,18 +47,19 @@ html = """
 
   <body style="font-family: Arial, sans-serif; background-color: #F0ceff; padding: 20px;">
 
-    <h1 style="color: black; font-size: 28px; font-weight: bold; margin-top: 0;">Your Daily Quote</h1>
+    <h1 style="color: black; font-size: 28px; font-weight: bold; margin-top: 0;">Your Daily Hadith</h1>
 
-    <p>Hello there,</p>
-    <p>Today's quote is:</p>
-    <p style="color:purple; font-size: 20px; font-family: 'Lucida Bright'; line-height: 1.5;">"{}"</p>
+    <p>Salam,</p>
+    <p>Today's Hadith is:</p>
+    <p style="color:purple; font-size: 19px; font-family: 'Lucida Bright'; line-height: 1.5;">"{}"</p>
     <p>- {}</p>
-    <p>Thank you for using my daily quote free service. I hope this quote inspires and motivates you throughout your day.</p>
+    <p>Thank you for subscribing to my daily Hadith service. I hope that the Hadith we share with you each day serves as a reminder of the beautiful teachings of Islam and brings you peace and inspiration.</p>
     <p>Best regards, Musawer Khan</p>
     <p>WhatsApp Me: 03408848212</p>
   </body>
 </html>
-""".format(quote, author)
+""".format(hadith_text, hadith_ref)
+
 
 
 # Create a MIMEText object to represent the HTML body
