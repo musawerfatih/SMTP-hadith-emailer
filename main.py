@@ -53,6 +53,8 @@ html = """
     <p>Today's Hadith is:</p>
     <p style="color:purple; font-size: 19px; font-family: 'Lucida Bright'; line-height: 1.5;">"{}"</p>
     <p>- {}</p>
+    <p> </p>
+    <hr>
     <p>Thank you for subscribing to my daily Hadith service. I hope that the Hadith we share with you each day serves as a reminder of the beautiful teachings of Islam and brings you peace and inspiration.</p>
     <p>Best regards, Musawer Khan</p>
     <p>WhatsApp Me: 03408848212</p>
