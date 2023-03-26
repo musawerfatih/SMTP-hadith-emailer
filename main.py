@@ -1,26 +1,23 @@
 import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 import requests
 from bs4 import BeautifulSoup
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
+def scrape_hadith():
 # Send a request to the website and get its HTML content
-url = "https://www.alim.org/hadith-of-the-day/"
-response = requests.get(url)
-html_content = response.content
+  url = "https://www.urdupoint.com/hadith-of-the-day.html"
+  response = requests.get(url)
+  html_content = response.content
 
-# Use BeautifulSoup to parse the HTML content
-soup = BeautifulSoup(html_content, "html.parser")
-
-# Get the hadith text inside div of class 
-hadith_text = (soup.find("div", class_="hadith-text")).text
-# print(hadith_text)
-
-# Get the reference of the Hadith from div tag
-hadith_ref = (soup.find("div", class_="btn btn-small hadith-of-day-ref")).text
-# print(hadith_ref)
+  # Use BeautifulSoup to parse the HTML content
+  soup = BeautifulSoup(html_content, "html.parser")
+  hadith_text = (soup.find("p", class_="fs20 lh40 ac urdu rtl")).text
+  
+  return hadith_text
 
 
+hadith = scrape_hadith()
 # create a message
 msg = MIMEMultipart("alternative")
 # msg['From'] = 'twitterdvlpr@gmail.com'
@@ -51,14 +48,15 @@ html = """
 
     <p>Salam,</p>
     <p>Today's Hadith is:</p>
-    <p style="color:purple; font-size: 19px; font-family: 'Lucida Bright'; line-height: 1.5;">"{}"</p>
-    <p>- {}</p>
-    <p>Thank you for subscribing to my daily Hadith service. I hope that the Hadith we share with you each day serves as a reminder of the beautiful teachings of Islam and brings you peace and inspiration.</p>
+    <p style="color:purple; font-size: 17px; font-family: 'Lucida Bright'; line-height: 1.5;">"{}"</p>
+    <p> </p>
+    <hr>
+    <p>Thank you for subscribing to my daily Hadith service. I hope that the Hadith, shared with you each day serves as a reminder of the beautiful teachings of Islam and brings you peace and inspiration.</p>
     <p>Best regards, Musawer Khan</p>
     <p>WhatsApp Me: 03408848212</p>
   </body>
 </html>
-""".format(hadith_text, hadith_ref)
+""".format(hadith)
 
 
 
@@ -79,4 +77,4 @@ server.sendmail('twitterdvlpr@gmail.com', 'musawerfatih@gmail.com', msg.as_strin
 # close the connection to the SMTP server
 server.quit()
 
-print("Email sent Successful. ")
+print("Hadith emailed Successful. ")
