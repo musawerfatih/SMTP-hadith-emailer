@@ -2,7 +2,7 @@ name: Workflow Test
 
 on:
   schedule:
-    - cron: '6 59 * * *'
+    - cron: '7 1 * * *'
 
 env:
   TZ: Asia/Karachi
