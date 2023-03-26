@@ -1,7 +1,7 @@
 name: Daily Test Send
 on:
   schedule:
-    - cron: '9 14 * * *' #Runs everyday at 06:17pm in Pakistan standard time
+    - cron: '15 14 * * *' #Runs everyday at 06:17pm in Pakistan standard time
 env:
   TZ: Asia/Karachi
 
