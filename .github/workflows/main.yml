@@ -1,4 +1,4 @@
-name: Daily Test Send
+name: Daily Test Sendd
 on:
   push:
     branches: 
