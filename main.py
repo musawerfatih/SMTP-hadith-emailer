@@ -55,16 +55,12 @@ html = """
       }}
     </style>
   </head>
-
   <body style="font-family: Arial, sans-serif; background-color: #F0ceff; padding: 20px;">
-
     <h1 style="color: black; font-size: 28px; font-weight: bold; margin-top: 0;">Your Daily Hadith</h1>
-
     <p>Salam,</p>
     <p>Today's Hadith is:</p>
-    <p style="color:purple; font-size: 19px; font-family: 'Lucida Bright'; line-height: 1.5;">"{}"</p>
+    <p style="color:purple; font-size: 18px; font-family: 'Lucida Bright'; line-height: 1.5;">"{}"</p>
     <p>- {}</p>
-    <p> </p>
     <hr>
     <p>Thank you for subscribing to my daily Hadith service. I hope that the Hadith we share with you each day serves as a reminder of the beautiful teachings of Islam and brings you peace and inspiration.</p>
     <p>Best regards, Musawer Khan</p>
