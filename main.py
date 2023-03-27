@@ -4,6 +4,16 @@ from email.mime.multipart import MIMEMultipart
 import requests
 import uuid
 from bs4 import BeautifulSoup
+import os
+
+
+sender_email = os.environ['MY_SENDER_EMAIL']
+sender_pass = os.environ['MY_SENDER_PASS']
+receiver_email = os.environ['RECEIVER_EMAIL']
+phone_num = os.environ['PHONE_NUM']
+
+# Use the sender_email and sender_pass variables in your code
+
 
 # Send a request to the website and get its HTML content
 url = "https://www.alim.org/hadith-of-the-day/"
@@ -25,10 +35,10 @@ hadith_ref = (soup.find("div", class_="btn btn-small hadith-of-day-ref")).text
 
 # create a message
 msg = MIMEMultipart("alternative")
-# msg['From'] = 'twitterdvlpr@gmail.com'
+# msg['From'] = sender_email
 # msg['From'] = 'Daily Quote <sender@gmail.com>'
 msg['From'] = 'Daily Hadith'
-msg['To'] = 'musawerfatih@gmail.com'
+msg['To'] = receiver_email
 # Generating random string to add to subject in order not to grouped the message in recepients inbox
 msg['Subject'] = f"Today's Hadith - ({str(uuid.uuid4())[:7]})"
 
@@ -62,10 +72,10 @@ html = """
     <hr>
     <p>Thank you for subscribing to my daily Hadith service. I hope that the Hadith we share with you each day serves as a reminder of the beautiful teachings of Islam and brings you peace and inspiration.</p>
     <p>Best regards, Musawer Khan</p>
-    <p>WhatsApp Me: 03408848212</p>
+    <p>WhatsApp Me: {}</p>
   </body>
 </html>
-""".format(hadith_text, hadith_ref)
+""".format(hadith_text, hadith_ref, phone_num)
 
 
 
@@ -78,10 +88,10 @@ msg.attach(html_part)
 
 # create a secure SSL/TLS connection to Gmail's SMTP server
 server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-server.login('twitterdvlpr@gmail.com', 'jtaulhaejigtosxp')
+server.login(sender_email, sender_pass)
 
 # send the message
-server.sendmail('twitterdvlpr@gmail.com', 'musawerfatih@gmail.com', msg.as_string())
+server.sendmail(sender_email, receiver_email, msg.as_string())
 
 # close the connection to the SMTP server
 server.quit()
