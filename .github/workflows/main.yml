@@ -7,6 +7,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      MY_SENDER_EMAIL: ${{ secrets.MY_SENDER_EMAIL }}
+      MY_SENDER_PASS: ${{ secrets.MY_SENDER_PASS }}
+      RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
+      PHONE_NUM: ${{ secrets.PHONE_NUM }}
+      
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
