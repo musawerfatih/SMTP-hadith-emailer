@@ -1,7 +1,7 @@
 name: Daily Test Sendd
 on:
   schedule:
-   - cron:  '33 7,2 * * *'
+   - cron:  '49 7,2 * * *'
 
 jobs:
   build:
