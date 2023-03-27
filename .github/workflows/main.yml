@@ -1,8 +1,7 @@
 name: Daily Test Sendd
 on:
-  push:
-    branches: 
-      - '*'
+  schedule:
+    - cron: '24 1 * * *'
 
 jobs:
   build:
