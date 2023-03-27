@@ -2,6 +2,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import requests
+import uuid
 from bs4 import BeautifulSoup
 
 # Send a request to the website and get its HTML content
@@ -21,13 +22,17 @@ hadith_ref = (soup.find("div", class_="btn btn-small hadith-of-day-ref")).text
 # print(hadith_ref)
 
 
+
 # create a message
 msg = MIMEMultipart("alternative")
 # msg['From'] = 'twitterdvlpr@gmail.com'
 # msg['From'] = 'Daily Quote <sender@gmail.com>'
 msg['From'] = 'Daily Hadith'
 msg['To'] = 'musawerfatih@gmail.com'
-msg['Subject'] = "Today's Hadith"
+# Generating random string to add to subject in order not to grouped the message in recepients inbox
+msg['Subject'] = f"Today's Hadith - ({str(uuid.uuid4())[:7]})"
+
+# msg['Subject'] = f'Hello There - {datetime.datetime.now()}'
 
 
 # Create the HTML email body with the quote and author
