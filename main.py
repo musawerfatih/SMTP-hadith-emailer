@@ -85,5 +85,5 @@ server.sendmail(sender_email, receiver_email, msg.as_string())
 
 # close the connection to the SMTP server
 server.quit()
-# snt
+
 print("Email sent Successful. ")
