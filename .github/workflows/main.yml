@@ -6,9 +6,10 @@ name: Daily Test Sendd
 #   schedule:
 #     - cron: '0 0 * * *'
 
-on: 
+on:
   schedule:
-    - cron: '3 3 * * *'
+    - cron: '8 3,8 * * 1'
+
 
 jobs:
   build:
