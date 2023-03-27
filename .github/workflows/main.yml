@@ -2,13 +2,14 @@ name: Daily Test Sendd
 # on:
 #   schedule:
 #    - cron:  '54 7,2 * * *'
-# on: 
-#   schedule:
-#     - cron: '0 0 * * *'
 
-on:
+on: 
   schedule:
-    - cron: '8 3,8 * * 1'
+    - cron: '0 0 * * *'
+
+# on:
+#   schedule:
+#     - cron: '8 3,8 * * 1'
 
 
 jobs:
