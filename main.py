@@ -1,18 +1,16 @@
+import os
+import uuid
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import requests
-import uuid
 from bs4 import BeautifulSoup
-import os
 
-
+# Environment variables for hiding data from public
 sender_email = os.environ['MY_SENDER_EMAIL']
 sender_pass = os.environ['MY_SENDER_PASS']
 receiver_email = os.environ['RECEIVER_EMAIL']
 phone_num = os.environ['PHONE_NUM']
-
-# Use the sender_email and sender_pass variables in your code
 
 
 # Send a request to the website and get its HTML content
@@ -32,7 +30,6 @@ hadith_ref = (soup.find("div", class_="btn btn-small hadith-of-day-ref")).text
 # print(hadith_ref)
 
 
-
 # create a message
 msg = MIMEMultipart("alternative")
 # msg['From'] = sender_email
@@ -41,7 +38,6 @@ msg['From'] = 'Daily Hadith'
 msg['To'] = receiver_email
 # Generating random string to add to subject in order not to grouped the message in recepients inbox
 msg['Subject'] = f"Today's Hadith - ({str(uuid.uuid4())[:7]})"
-
 # msg['Subject'] = f'Hello There - {datetime.datetime.now()}'
 
 
@@ -51,7 +47,6 @@ html = """
   <head>
     <style>
       /* Add some styling to the email body */
-
       p {{
         color: black;
         font-size: 16px;
@@ -78,13 +73,11 @@ html = """
 """.format(hadith_text, hadith_ref, phone_num)
 
 
-
 # Create a MIMEText object to represent the HTML body
 html_part = MIMEText(html, "html")
 
 # Attach the HTML body to the email message
 msg.attach(html_part)
-
 
 # create a secure SSL/TLS connection to Gmail's SMTP server
 server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
