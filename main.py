@@ -6,6 +6,7 @@ from email.mime.multipart import MIMEMultipart
 import requests
 from bs4 import BeautifulSoup
 
+
 # Environment variables for hiding data from public
 sender_email = os.environ['MY_SENDER_EMAIL']
 sender_pass = os.environ['MY_SENDER_PASS']
