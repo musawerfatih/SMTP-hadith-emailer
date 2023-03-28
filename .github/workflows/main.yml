@@ -1,4 +1,4 @@
-name: Daily Test Sendd
+name: SMTP Hadith Emailer
 # on:
 #   schedule:
 #    - cron:  '54 7,2 * * *'
