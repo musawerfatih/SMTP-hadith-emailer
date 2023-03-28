@@ -1,10 +1,10 @@
 import os
 import uuid
 import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 import requests
 from bs4 import BeautifulSoup
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 
 # Environment variables for hiding secret data from public
@@ -24,22 +24,15 @@ soup = BeautifulSoup(html_content, "html.parser")
 
 # Get the hadith text inside div of class 
 hadith_text = (soup.find("div", class_="hadith-text")).text
-# print(hadith_text)
-
-# Get the reference of the Hadith from div tag
 hadith_ref = (soup.find("div", class_="btn btn-small hadith-of-day-ref")).text
-# print(hadith_ref)
 
 
 # create a message
 msg = MIMEMultipart("alternative")
-# msg['From'] = sender_email
-# msg['From'] = 'Daily Quote <sender@gmail.com>'
 msg['From'] = 'Daily Hadith'
 msg['To'] = receiver_email
-# Generating random string to add to subject in order not to grouped the message in recepients inbox
+# Generating random string to add to subject in order not to grouped the messages in recepients inbox
 msg['Subject'] = f"Today's Hadith - ({str(uuid.uuid4())[:7]})"
-# msg['Subject'] = f'Hello There - {datetime.datetime.now()}'
 
 
 # Create the HTML email body with the quote and reference
@@ -85,4 +78,4 @@ server.sendmail(sender_email, receiver_email, msg.as_string())
 # close the connection to the SMTP server
 server.quit()
 
-print("Email sent Successful. ")
+print("Hadith emailed successfully. ")
