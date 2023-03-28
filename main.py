@@ -7,14 +7,14 @@ import requests
 from bs4 import BeautifulSoup
 
 
-# Environment variables for hiding data from public
+# Environment variables for hiding secret data from public
 sender_email = os.environ['MY_SENDER_EMAIL']
 sender_pass = os.environ['MY_SENDER_PASS']
 receiver_email = os.environ['RECEIVER_EMAIL']
 phone_num = os.environ['PHONE_NUM']
 
 
-# Send a request to the website and get its HTML content
+# Send request to the website and get its HTML content
 url = "https://www.alim.org/hadith-of-the-day/"
 response = requests.get(url)
 html_content = response.content
@@ -42,7 +42,7 @@ msg['Subject'] = f"Today's Hadith - ({str(uuid.uuid4())[:7]})"
 # msg['Subject'] = f'Hello There - {datetime.datetime.now()}'
 
 
-# Create the HTML email body with the quote and author
+# Create the HTML email body with the quote and reference
 html = """
 <html>
   <head>
@@ -62,9 +62,8 @@ html = """
     <p style="color:purple; font-size: 18px; font-family: 'Lucida Bright'; line-height: 1.5;">"{}"</p>
     <p>- {}</p>
     <hr>
-    <p>Thank you for subscribing to my daily Hadith service. I hope that the Hadith we share with you each day serves as a reminder of the beautiful teachings of Islam and brings you peace and inspiration.</p>
-    <p>Best regards, Musawer Khan</p>
-    <p>WhatsApp Me: {}</p>
+    <p>Thank you for subscribing to my daily Hadith service. I hope that the Hadith, shared with you each day, serves as a reminder of the beautiful teachings of Islam and brings you peace and inspiration.</p>
+    <p>Best regards, Musawer Khan <br>WhatsApp me: {}</p>
   </body>
 </html>
 """.format(hadith_text, hadith_ref, phone_num)
