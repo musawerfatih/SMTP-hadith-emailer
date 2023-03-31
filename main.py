@@ -2,6 +2,7 @@ import os
 import uuid
 import smtplib
 import requests
+from datetime import datetime
 from bs4 import BeautifulSoup
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -32,7 +33,8 @@ msg = MIMEMultipart("alternative")
 msg['From'] = 'Daily Hadith'
 msg['To'] = receiver_email
 # Generating random string to add to subject in order not to grouped the messages in recepients inbox
-msg['Subject'] = f"Today's Hadith - ({str(uuid.uuid4())[:7]})"
+# msg['Subject'] = f"Today's Hadith - ({str(uuid.uuid4())[:7]})"
+msg['Subject'] = f"Today's Hadith - {datetime.now().strftime('(%d-%m-%Y)')}"
 
 
 # Create the HTML email body with the quote and reference
@@ -50,13 +52,12 @@ html = """
   </head>
   <body style="font-family: Arial, sans-serif; background-color: #F0ceff; padding: 20px;">
     <h1 style="color: black; font-size: 28px; font-weight: bold; margin-top: 0;">Your Daily Hadith</h1>
-    <p>Salam,</p>
-    <p>Today's Hadith is:</p>
+    <p>Salam,<br>Today's Hadith is:</p>
     <p style="color:purple; font-size: 18px; font-family: 'Lucida Bright'; line-height: 1.5; font-style: italic;">"{}"</p>
     <p>- {}</p>
     <hr>
     <p>Thank you for subscribing to my daily Hadith service. I hope that the Hadith, shared with you each day, serves as a reminder of the beautiful teachings of Islam and brings you peace and inspiration.</p>
-    <p>Best regards, Musawer Khan <br>WhatsApp me: {}</p>
+    <center><p>Best regards, Musawer Khan <br>WhatsApp me: {}</p></center>
   </body>
 </html>
 """.format(hadith_text, hadith_ref, phone_num)
